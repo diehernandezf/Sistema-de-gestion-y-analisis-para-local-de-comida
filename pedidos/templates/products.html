@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<style>
+    .card-img-top {
+        height: 200px;
+        /* 🔹 ajusta la altura según tu diseño */
+        object-fit: cover;
+        /* 🔹 recorta sin deformar */
+    }
+</style>
+
+<div class="row my-4 mx-5 text-center">
+    <h2>{{ categoria.nombre_categoria }}</h2>
+
+    {% for product in products %}
+    <div class="col-md-3 mb-4">
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="{{ product.image.url }}" alt="{{product.name}}">
+            <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p>{{ product.price }}</p>
+                <a href="#" class="btn btn-primary">Agregar al carrito</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
