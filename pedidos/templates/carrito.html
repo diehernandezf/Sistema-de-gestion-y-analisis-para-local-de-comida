@@ -1,0 +1,60 @@
+<div class="alert alert-primary" role="alert">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="row" colspan="3" class="text-center">CARRITO</th>
+            </tr>
+            <tr>
+                <th scope="col">NOMBRE</th>
+                <th scope="col">PRECIO</th>
+                <th scope="col">CANTIDAD</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if request.session.carrito.items %}
+            {% for key, value in request.session.carrito.items %}
+            <tr>
+                <td>{{ value.nombre }}</td>
+                <td>{{ value.price }}</td>
+                <td>{{ value.total }}
+                    <a href="{% url 'products:add' value.producto_id %}" class="badge btn btn-dark badge-dark">+</a>
+                    <a href="{% url 'products:sub' value.producto_id %}" class="badge btn btn-dark badge-dark">-</a>
+                </td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+                <td colspan="3">
+                    <div class="alert alert-danger tex-center">Sin Productos</div>
+                </td>
+            </tr>
+            {% endif %}
+            <tr>
+                <th scope="row">Total:</th>
+                <td colspan="2">$ {{ total_carrito }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="row text-center">
+    <div class="col-6"><a href="#" class=" btn btn-success">Finalizar compra</a></div>
+    <div id="paypal-button-container"></div>
+    <p id="result-message"></p>
+</div>
+
+<!-- Initialize the JS-SDK -->
+        <script
+            src="https://www.paypal.com/sdk/js?client-id=test"
+            data-sdk-integration-source="developer-studio"
+        ></script>
+
+        <script type="module">
+            const paypalButtons = window.paypal.Buttons({
+                style: {
+                    shape: "rect",
+                    layout: "vertical",
+                    color: "gold",
+                    label: "paypal",
+                },
+            }).render("#paypal-button-container");
+        </script>
