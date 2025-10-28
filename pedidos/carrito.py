@@ -28,6 +28,8 @@ class Carrito:
         self.session.modified = True
     
     def eliminar(self, producto):
+        if producto is None:
+            return False
         id = str(producto.id)
         if id in self.carrito:
             del self.carrito[id]
